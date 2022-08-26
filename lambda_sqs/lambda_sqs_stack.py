@@ -19,7 +19,11 @@ class LambdaSqsStack(Stack):
             visibility_timeout=Duration.seconds(300),
         )
     # making Lambda
-        sqs_lambda=_lambda.Function(self, 'SQSTRIGGER',handler='lambda_handler.handler',Runtime=_lambda.RuntimeFamily.PYTHON,code=_lambda.Code.from_asset('lambda'))
+        sqs_lambda=_lambda.Function(self, 'sqltrigger',
+            handler='lambda_handler.handler',
+            runtime=_lambda.Runtime.PYTHON_3_9,
+            code=_lambda.Code.asset('lambda')
+        )
 
         sqs_event_source= _aws_lambda_event_sources.SqsEventSource(queue)
     #Link SQS event source to the Lambda funciton
